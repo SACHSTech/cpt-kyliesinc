@@ -1,7 +1,7 @@
 package cpt;
 import java.time.LocalDate;
 
-public class CovidRecords {
+public class ShowVid19Record {
     // instance variables
     String strIsoCode;
     String strContinent;
@@ -13,8 +13,8 @@ public class CovidRecords {
     double dblNewCasesPerMil;
 
     // add proper comments still
-    // covid records class and getters
-    public CovidRecords(String strIsoCode, String strContinent, String strLocation, LocalDate date, double dbltotalCases, double dblNewCases, double dblTotalCasesPerMil, double dblNewCasesPerMil){       
+    // covid thisords class and getters
+    public ShowVid19Record(String strIsoCode, String strContinent, String strLocation, LocalDate date, double dbltotalCases, double dblNewCases, double dblTotalCasesPerMil, double dblNewCasesPerMil){       
         this.strIsoCode = strIsoCode;
         this.strContinent = strContinent;
         this.strLocation = strLocation;
@@ -57,4 +57,15 @@ public class CovidRecords {
         return dblNewCasesPerMil;
     }
 
+    public void dump() {
+        System.out.printf("%s %s %s %s %f %f %f %f\n",
+        getIsoCode(),
+        getContinent(),
+        getLocation(),
+        getDate().toString(),
+        getTotalCases(),
+        getNewCases(),
+        getTotalCasesPerMil(),
+        getNewCasesPerMil());
+    }
 }
