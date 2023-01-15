@@ -5,25 +5,27 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CovidData2D {
+public class ShowVid19Data {
 
     public static void main(String [] args) throws IOException {
-        String file = "src/cpt/owid-covid-data.csv";
-        CovidRecords covid_data = ReadFileInto2DArray(file);
-        covid_data.getCountry()
-        for(int i = 0; i < data.length; i++){
-            System.out.println(String.join("     " , data[i]));
+
+        String filepath = "src/cpt/owid-covid-data.csv";
+        CovidRecords covid_data = ReadFile(filepath);
+        //covid_data.getCountry();
+
+        for(int i = 0; i < filepath.length(); i++){
+            System.out.println(String.join("," , covid_data[i]));
         }
     }
 
     // filepath: is file wished to read
     // amount of fields: 
-    public static String[][] ReadFileInto2DArray(String filepath){
+    public static CovidRecords ReadFile(String filepath){
         
         //make a string list storing every record in the file
         List<String> recordsList = new ArrayList<String>();
 
-        ArrayList<CovidRecords>   covid_data = new ArrayList<CovidRecords>();
+        ArrayList<CovidRecords> covid_data = new ArrayList<CovidRecords>();
 
         String delimiter = ",";
         String currentLine;
@@ -50,19 +52,15 @@ public class CovidData2D {
                                                          fields[2],
                                                          LocalDate.parse(fields[3]),
                                                          Double.parseDouble(fields[4]),
-                                                         fields[5],
-                                                         fields[6],
-                                                         fields[7],
-                                                         fields[8],
-                                                         fields[9],
-                                                         fields[10]);
-                covid_data.add(record);
+                                                         Double.parseDouble(fields[5]),
+                                                         Double.parseDouble(fields[6]),
+                                                         Double.parseDouble(fields[7]));
             }
 
             int recordCount = recordsList.size();
 
             //rows and coulums
-            String arrayToReturn[][] = new String[recordCount][amountOfFields];
+            String arrayToReturn[] = new String[recordCount];
             String[] data;
 
             for(int i = 0; i < recordCount; i++){
