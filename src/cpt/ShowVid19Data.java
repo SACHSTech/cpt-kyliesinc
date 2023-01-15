@@ -20,9 +20,9 @@ public class ShowVid19Data {
 
     // filepath: is file wished to read
     // amount of fields: 
-    public static CovidRecords ReadFile(String filepath){
+    public static String[] ReadFile(String filepath){
         
-        //make a string list storing every record in the file
+        //make a string list and covid records list storing every record in the file
         List<String> recordsList = new ArrayList<String>();
 
         ArrayList<CovidRecords> covid_data = new ArrayList<CovidRecords>();
@@ -55,6 +55,7 @@ public class ShowVid19Data {
                                                          Double.parseDouble(fields[5]),
                                                          Double.parseDouble(fields[6]),
                                                          Double.parseDouble(fields[7]));
+                covid_data.add(record);
             }
 
             int recordCount = recordsList.size();
@@ -72,9 +73,11 @@ public class ShowVid19Data {
                 for(int j = 0; j < data.length; j++){
 
                     // j represent the field for a particular record
-                    arrayToReturn[i][j] = data[j];
+                    // * needs to be an array type but is currently a str
+                    arrayToReturn[i] = data[j];
                 }
             }
+            // coverting from str[] to covidrecords[]
             return arrayToReturn;
 
         } catch (Exception e){
