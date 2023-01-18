@@ -20,6 +20,7 @@ public class ShowVidContinent {
 
     public LocalDate getDate(){
         return date;
+
     }
 
     public double getTotalCases(){
