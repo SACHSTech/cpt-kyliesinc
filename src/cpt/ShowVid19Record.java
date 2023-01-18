@@ -57,6 +57,11 @@ public class ShowVid19Record {
         return dblNewCasesPerMil;
     }
 
+    public double setTotalCases(double newTotalCases){
+        dblTotalCases = newTotalCases; 
+        return dblTotalCases;
+    }
+
     public void dump() {
         System.out.printf("%s %s %s %s %f %f %f %f\n",
         getIsoCode(),

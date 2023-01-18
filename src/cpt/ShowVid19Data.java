@@ -54,16 +54,20 @@ public class ShowVid19Data {
         }
         return selection;
     }
+    
     //
     public ShowVid19Data selectContinentTotals() {
-        ShowVid19Data     country_data = selectCountryData();
+        ShowVid19Data     country_data = selectCountryTotals();
         HashMap<String, ShowVid19Record>   continent_records = new HashMap<String, ShowVid19Record>();
-        for (ShowVid19Record rec : country_data) {
-            if (continent_records.get(rec.getContinent())) {
+        for (ShowVid19Record rec : country_data.data) {
+            if (continent_records.get(rec.getContinent()) != null) {
                 ShowVid19Record   continent_rec = continent_records.get(rec.getContinent());
-                // what do you put here to update the totals for this continent?
-            } else
-                continent_records.put(rec.getContinent(), rec);
+                double totalCases = rec.getTotalCases() + continent_rec.getTotalCases();
+                continent_rec.setTotalCases(totalCases);
+            } else { 
+                ShowVid19Record new_rec = new ShowVid19Record("", rec.getContinent(), "", rec.getDate(), rec.getTotalCases(), 0.0, 0.0, 0.0);
+                continent_records.put(rec.getContinent(), new_rec);
+            }     
         }
 
         ShowVid19Data   data = new ShowVid19Data();
@@ -109,6 +113,7 @@ public class ShowVid19Data {
         }
         return selection;
     }
+
 
     private ArrayList<ShowVid19Record> data;
 
