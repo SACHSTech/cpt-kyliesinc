@@ -4,6 +4,7 @@ import java.io.*;
 import java.io.FileReader;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 
@@ -39,7 +40,7 @@ public class ShowVid19Data {
     }
 
     // produce data based on contient chosen
-    
+
     public ShowVidContinent selectByContinent(String continent) {
         double continentTotalCases = 0.0;
         LocalDate date = null;
@@ -52,6 +53,23 @@ public class ShowVid19Data {
             }
         }
         return selection;
+    }
+    //
+    public ShowVid19Data selectContinentTotals() {
+        ShowVid19Data     country_data = selectCountryData();
+        HashMap<String, ShowVid19Record>   continent_records = new HashMap<String, ShowVid19Record>();
+        for (ShowVid19Record rec : country_data) {
+            if (continent_records.get(rec.getContinent())) {
+                ShowVid19Record   continent_rec = continent_records.get(rec.getContinent());
+                // what do you put here to update the totals for this continent?
+            } else
+                continent_records.put(rec.getContinent(), rec);
+        }
+
+        ShowVid19Data   data = new ShowVid19Data();
+        for (ShowVid19Record rec : continent_records.values())
+            data.addRecord(rec);
+        return data;
     }
 
     // produce number of new cases 
