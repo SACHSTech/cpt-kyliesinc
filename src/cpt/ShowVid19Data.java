@@ -110,24 +110,13 @@ public class ShowVid19Data {
         return selection;
     }
 
-    // just produce the current total case record for each continent
-    public ShowVid19Data selectContinentTotals() {
-        ShowVid19Data     selection = new ShowVid19Data();
-        ShowVid19Record   last_rec = null;
-        double            continentTotal = 0.0;
-        for (ShowVid19Record rec : data) {
-            if (last_rec != null && !last_rec.getContinent().equals(rec.getContinent())) {
-                    continentTotal += last_rec.getTotalCases();
-                    
-                    
-            }
-            last_rec = rec;
-        }
-        if (last_rec != null) {
-            selection.addRecord(last_rec);
-        }
-        return selection;
-    }
-
     private ArrayList<ShowVid19Record> data;
+
+    // break down by contient
+    // break down by country
+    // go through and sort by date
+    // compare which has newer date
+    // 
+
+    //get select country total  
 }
