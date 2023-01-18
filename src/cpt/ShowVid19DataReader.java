@@ -57,28 +57,31 @@ public class ShowVid19DataReader {
         //data.dumpRecords();
 
         // pick out the record data want to produce
-        ShowVid19Data afghanistanData = data.selectByCountry("Afghanistan");
-        afghanistanData.dumpRecords();
+        //ShowVid19Data afghanistanData = data.selectByCountry("Afghanistan");
+        //afghanistanData.dumpRecords();
 
-        // produce each contient covid records
-        // asia:
-        ShowVid19Data asiaData = data.selectByContinent("Asia");
-        asiaData.dumpRecords();
-        // north america:
-        ShowVid19Data northAmericaData = data.selectByContinent("North America");
-        northAmericaData.dumpRecords();
-        // south america:
-        ShowVid19Data southAmericaData = data.selectByContinent("South America");
-        southAmericaData.dumpRecords();
-        // africa:
-        ShowVid19Data africaData = data.selectByContinent("Africa");
-        africaData.dumpRecords();
-        // europe:
-        ShowVid19Data europeData = data.selectByContinent("Europe");
-        europeData.dumpRecords();
-        // oceanic:
-        ShowVid19Data oceaniaData = data.selectByContinent("Oceania");
-        oceaniaData.dumpRecords();
+        // produce each contient covid records for country and just show the total number of cases 
+        // Canada:
+        //ShowVid19Data CanadaData = data.selectByCountry("Canada");
+        //CanadaData.dumpRecords();
+        // USA:
+        //ShowVid19Data USAData = data.selectByCountry("USA");
+        //USAData.dumpRecords();
+        // China:
+        //ShowVid19Data VenezualaData = data.selectByCountry("Venezuala");
+        //VenezualaData.dumpRecords();
+        // Australia:
+        //ShowVid19Data AustraliaData = data.selectByCountry("Australia");
+        //AustraliaData.dumpRecords();
+        // :
+        //ShowVid19Data FranceData = data.selectByCountry("France");
+        //FranceData.dumpRecords();
+        // Switzerland:
+        ShowVid19Data SwitzerlandData = data.selectByContinent("Asia");
+        SwitzerlandData.dumpRecords();
+
+        //ShowVid19Data  countryData = data.selectContinentTotals();
+        //countryData.dumpRecords();
          
 
     }
