@@ -12,7 +12,6 @@ import java.time.LocalDate;
 public class ShowVid19Data {
     public ShowVid19Data() {
         data = new ArrayList<ShowVid19Record>();
-        
     }
 
     // add record 
@@ -39,23 +38,7 @@ public class ShowVid19Data {
         return selection;
     }
 
-    // produce data based on contient chosen
-
-    public ShowVidContinent selectByContinent(String continent) {
-        double continentTotalCases = 0.0;
-        LocalDate date = null;
-        ShowVidContinent selection = new ShowVidContinent(continent, date, continentTotalCases);
-
-        for (ShowVidContinent rec : data){
-            if(rec.getContinent().equals(continent)){
-                continentTotalCases += rec.getTotalCases();
-                date = getDate();
-            }
-        }
-        return selection;
-    }
-    
-    //
+    // find the total cases for each continents 
     public ShowVid19Data selectContinentTotals() {
         ShowVid19Data     country_data = selectCountryTotals();
         HashMap<String, ShowVid19Record>   continent_records = new HashMap<String, ShowVid19Record>();
@@ -121,7 +104,6 @@ public class ShowVid19Data {
     // break down by country
     // go through and sort by date
     // compare which has newer date
-    // 
 
     //get select country total  
 }
