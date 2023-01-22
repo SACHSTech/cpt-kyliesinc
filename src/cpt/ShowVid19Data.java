@@ -38,6 +38,27 @@ public class ShowVid19Data {
         return selection;
     }
 
+    // produce data based on contient
+    public ShowVid19Data selectByContinent(String continent) {
+        ShowVid19Data selection = new ShowVid19Data();
+        for (ShowVid19Record rec : data ) {
+            if (rec.getContinent(). equals(continent)){
+                selection.addRecord(rec);
+            }
+        }
+        return selection;
+    }
+
+    public List<ShowVid19Record> getRecords (){
+        return data;
+    }
+
+    public List<ShowVid19Record> getContinentRecords(String continent){
+        HashMap<String, List<ShowVid19Record>> continentRecords  = new HashMap<>();
+        return continentRecords.get(continent);
+    }
+
+
     // find the total cases for each continents 
     public ShowVid19Data selectContinentTotals() {
         ShowVid19Data     country_data = selectCountryTotals();
@@ -96,7 +117,6 @@ public class ShowVid19Data {
         }
         return selection;
     }
-
 
     private ArrayList<ShowVid19Record> data;
 

@@ -47,11 +47,9 @@ public class ShowVid19DataReader {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        
-        // produce each contient covid records
+
         ShowVid19Data continentData = data.selectContinentTotals();
+        // printing continent and total cases
         continentData.dumpRecords();
-
-
     }
 }

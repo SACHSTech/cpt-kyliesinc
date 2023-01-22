@@ -1,5 +1,6 @@
 package cpt;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ShowVid19Record {
     // instance variables
@@ -62,15 +63,15 @@ public class ShowVid19Record {
         return dblTotalCases;
     }
 
+
     public void dump() {
-        System.out.printf("%s %s %s %s %f %f %f %f\n",
-        getIsoCode(),
+        System.out.printf("%s %f\n",
         getContinent(),
-        getLocation(),
-        getDate().toString(),
-        getTotalCases(),
-        getNewCases(),
-        getTotalCasesPerMil(),
-        getNewCasesPerMil());
+        //getLocation(),
+        //getDate().toString(),
+        getTotalCases());
+        //getNewCases(),
+        //getTotalCasesPerMil(),
+        //getNewCasesPerMil());
     }
 }
