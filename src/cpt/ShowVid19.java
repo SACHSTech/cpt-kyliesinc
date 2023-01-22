@@ -17,6 +17,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.chart.AreaChart;
 
+
+
 public class ShowVid19 extends Application{
 
     public static void main(String[] args) throws IOException{
@@ -25,21 +27,47 @@ public class ShowVid19 extends Application{
     
     @Override
     public void start (Stage primaryStage) throws Exception{
+        // Title of display
         primaryStage.setTitle("SHOWVID 19 DATA DISPLAY");
 
-        MenuItem menuBar = new MenuItem("Show Bar Chart");
-        MenuItem menuPie = new MenuItem("Show Bar Chart");
-        MenuItem menuTable = new MenuItem("Show Bar Chart");
+        // display options in drop down list
+        MenuItem menuBar = new MenuItem("Bar Chart");
+        MenuItem menuPie = new MenuItem("Pie Chart");
+        MenuItem menuTable = new MenuItem("Table Chart");
 
-        MenuButton menuButton = new MenuButton("Options", null, menuBar, menuPie, menuTable);
+        // title for drop down to guide user
+        MenuButton menuButton = new MenuButton("Select View Option for ShowVid19 Data", null, menuBar, menuPie, menuTable);
 
+        // draws box 
         HBox hbox = new HBox(menuButton);
 
-        Scene scene = new Scene(hbox, 200, 100);
+        // display's dimensions
+        Scene scene = new Scene(hbox, 500, 500);
 
+        // shows scene
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        
+        // menubutton actions
+        menuBar.setOnAction(event -> {
+            System.out.println("Bar Chart Selected");
+            Scene bcScene = ShowVid19Scenes.createBarChart();
+            primaryStage.setScene(bcScene);
+            primaryStage.setTitle("Bar Chart");
+            primaryStage.show();
+        });
+
+        menuPie.setOnAction(event -> {
+            System.out.println("Pie Chart Selected");
+        });
+
+        menuTable.setOnAction(event -> {
+            System.out.println("Table Chart Selected");
+        });
+
+    
     }
+
+    // bar chart scene
+    
 }

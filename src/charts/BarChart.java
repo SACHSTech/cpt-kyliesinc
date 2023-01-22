@@ -23,6 +23,9 @@ public class BarChart extends Application {
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
  
+    public BarChart(CategoryAxis xAxis2, NumberAxis yAxis2, Object object, double d) {
+    }
+
     public Parent createContent() {
         String[] years = {"2007", "2008", "2009"};
         xAxis = new CategoryAxis();
