@@ -87,6 +87,11 @@ public class ShowVid19Data {
         return data;
     }
 
+    public String[] findContinents(){
+        ShowVid19Data continent_data = selectContinentTotals();
+        
+    }
+
     // produce number of new cases 
     public ShowVid19Data showNewCases (String newCases){
         ShowVid19Data selection = new ShowVid19Data();
@@ -127,7 +132,13 @@ public class ShowVid19Data {
 
     private ArrayList<ShowVid19Record> data;
 
-    // break down by contient
+    // create array list of continents
+    public String[] selectContinents(){
+        ShowVid19Data selection = new ShowVid19Data();
+        
+
+
+    }
     // break down by country
     // go through and sort by date
     // compare which has newer date
