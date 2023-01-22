@@ -64,6 +64,7 @@ public class ShowVid19Record {
     }
 
 
+    // output the continent and total cases 
     public void dump() {
         System.out.printf("%s %f\n",
         getContinent(),
@@ -73,5 +74,17 @@ public class ShowVid19Record {
         //getNewCases(),
         //getTotalCasesPerMil(),
         //getNewCasesPerMil());
+    }
+
+    // output all data
+    public void dumpAll() {
+        System.out.printf("%s %s %s %f %f %f %f\n",
+        getContinent(),
+        getLocation(),
+        getDate().toString(),
+        getTotalCases(),
+        getNewCases(),
+        getTotalCasesPerMil(),
+        getNewCasesPerMil());
     }
 }

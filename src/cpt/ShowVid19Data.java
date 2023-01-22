@@ -19,10 +19,17 @@ public class ShowVid19Data {
         data.add(rec);
     }
 
-    // dump records
+    // dump records for continent and total cases
     public void dumpRecords() {
         for(ShowVid19Record rec : data) {
             rec.dump();
+        }
+    }
+
+    // dump records for all data
+    public void dumpAllRecords() {
+        for(ShowVid19Record rec : data) {
+            rec.dumpAll();
         }
     }
 

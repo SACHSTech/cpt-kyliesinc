@@ -48,8 +48,11 @@ public class ShowVid19DataReader {
             e.printStackTrace();
         }
 
-        ShowVid19Data continentData = data.selectContinentTotals();
+        ShowVid19Data allData = data;
+        allData.dumpAllRecords();
+
+        //ShowVid19Data continentData = data.selectContinentTotals();
         // printing continent and total cases
-        continentData.dumpRecords();
+        //continentData.dumpRecords();
     }
 }

@@ -26,8 +26,8 @@ public class TableViewApp extends Application{
           Oceania 13795838.000000
        */
 
-        //String[] continents = {"South America", "Asia", "Europe", "Africa", "North America", "Oceania"};
-        //double [] cases = {67274997.000000, 206787307.000000, 245897410.000000, 12480040.000000,120227163.000000, 13795838.000000};
+        String[] continents = {"South America", "Asia", "Europe", "Africa", "North America", "Oceania"};
+        double [] cases = {67274997.000000, 206787307.000000, 245897410.000000, 12480040.000000,120227163.000000, 13795838.000000};
 
     
         
@@ -60,6 +60,7 @@ public class TableViewApp extends Application{
          TableColumn totalCasesCol = new TableColumn("Total Cases");
 
         // create table 
+        
         //final TableView<ShowVid19Record> tableView = new TableView<ShowVid19Record>();
         //tableView.setItems(FXCollections.observableArrayList(data));
 
