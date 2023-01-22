@@ -36,8 +36,8 @@ public class TableViewApp extends Application{
     @Override public void start(Stage primaryStage) throws Exception {
         Scene scene = new Scene(new Group());
         primaryStage.setTitle("Covid Cases by Continent for 2023/01/13");
-        primaryStage.setWidth(200);
-        primaryStage.setHeight(800);
+        primaryStage.setWidth(1100);
+        primaryStage.setHeight(1000);
 
         final Label label = new Label("Covid Cases Table View");
         label.setFont(new Font("Arial", 20));
