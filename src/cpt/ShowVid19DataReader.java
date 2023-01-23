@@ -52,17 +52,16 @@ public class ShowVid19DataReader {
 
         this.data = data;
 
-        ShowVid19Data allData = data;
         //this.data.dumpAllRecords();
 
         //ShowVid19Data continentData = data.selectContinentTotals();
         // printing continent and total cases
         //continentData.dumpRecords();
-        
-        public ShowVid19Data getData(){
-            return data;
-        }
-
-        ShowVid19Data data;
     }
+
+    public ShowVid19Data getData() {
+        return data;
+    }
+
+    ShowVid19Data data;
 }

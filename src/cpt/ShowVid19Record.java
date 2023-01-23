@@ -1,5 +1,7 @@
 package cpt;
 import java.time.LocalDate;
+import java.util.ArrayList;
+
 
 /**
  * ShowVid19Record class file

@@ -128,7 +128,6 @@ public class ShowVid19Data {
                 continent_rec.setTotalCases(totalCases);
             } else { 
                 ShowVid19Record new_rec = new ShowVid19Record("", rec.getContinent(), "", rec.getDate(), rec.getTotalCases(), 0.0, 0.0, 0.0);
-                
                 continent_records.put(rec.getContinent(), new_rec);
             }     
         }
@@ -136,6 +135,17 @@ public class ShowVid19Data {
         for (ShowVid19Record rec : continent_records.values())
             data.addRecord(rec);
         return data;
+    }
+
+    // produce number of new cases 
+    public ShowVid19Data showNewCases (String newCases){
+        ShowVid19Data selection = new ShowVid19Data();
+        for (ShowVid19Record rec : data){
+            if(rec.getContinent().equals(newCases)){
+                selection.addRecord(rec);
+            }
+        }
+        return selection;
     }
 
     // produce number of total cases
@@ -173,7 +183,6 @@ public class ShowVid19Data {
     public ArrayList<ShowVid19Record> getData(){
         return data;
     }
-
 
     private ArrayList<ShowVid19Record> data;
 
