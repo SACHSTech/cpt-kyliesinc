@@ -4,8 +4,20 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * MergeSort class file
+ * @author: K. Sinclair
+ */
 public class MergeSort {
     
+    /**
+     * A method that merges left side of the ShowVid19Record List with the right side based on the comparator
+     * @param - left
+     * @param - right
+     * @param - comparator
+     * 
+     * @return result
+     */ 
     private static List<ShowVid19Record> merge(List<ShowVid19Record> left, List<ShowVid19Record> right, Comparator<ShowVid19Record> comparator){
         // initialize variables
         List<ShowVid19Record> result = new ArrayList<>();
@@ -43,6 +55,11 @@ public class MergeSort {
         return result;
     }
 
+    /**
+     * A method that merge sorts the records by splitting them into left and right side and compares them
+     * 
+     * @return the sorted records
+     */ 
     public static List<ShowVid19Record> mergeSort(List<ShowVid19Record> records, Comparator<ShowVid19Record> comparator) {
         // define variables
         int intRecordsSize = records.size();

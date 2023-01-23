@@ -2,8 +2,13 @@ package cpt;
 import java.io.*;
 import java.time.LocalDate;
 import java.io.FileReader;
+
+/**
+ * ShowVid19 Data Reader
+ * @author: K. Sinclair
+ */
 public class ShowVid19DataReader {
-    public static void main(String[] args) throws IOException {
+    public void readData() throws IOException {
         // defining variables
         ShowVid19Data data = new ShowVid19Data();
         // buffer reader to read file
@@ -16,10 +21,7 @@ public class ShowVid19DataReader {
             br.readLine();
             // read through all the lines
             while ((line = br.readLine()) != null) {
-                // would print out cvs file
-                // System.out.println(line);
-                // separating each line into their assigned columns from the header based off
-                // the ","
+                // separating each line into their assigned columns from the header based off the ","
                 String[] values = line.split(",", -1);
                 // declaring the values
                 // values[0] = isocode
@@ -48,11 +50,19 @@ public class ShowVid19DataReader {
             e.printStackTrace();
         }
 
+        this.data = data;
+
         ShowVid19Data allData = data;
-        allData.dumpAllRecords();
+        //this.data.dumpAllRecords();
 
         //ShowVid19Data continentData = data.selectContinentTotals();
         // printing continent and total cases
         //continentData.dumpRecords();
+        
+        public ShowVid19Data getData(){
+            return data;
+        }
+
+        ShowVid19Data data;
     }
 }

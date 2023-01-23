@@ -2,6 +2,8 @@ package cpt;
 
 import java.io.*;
 
+import java.io.*;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -9,28 +11,20 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
+import javafx.scene.*;
+import javafx.geometry.*;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.PieChart;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.*;
+import javafx.scene.layout.*;
+import javafx.scene.chart.*;
+import java.util.*;
 
 
 
 
 
 public class ShowVid19 extends Application{
-
 
     //*************************************************************
     // Bar Chart Method Creator
@@ -40,38 +34,35 @@ public class ShowVid19 extends Application{
     private CategoryAxis xAxis;
     private NumberAxis yAxis;
 
-    public Parent createBarContent() {
-        /**
-         *  South America 67274997.000000
-             Asia 206787307.000000
-            Europe 245897410.000000
-            Africa 12480040.000000
-            North America 120227163.000000
-            Oceania 13795838.000000
-        */
+    public Parent createBarContent(List<ShowVid19Data> data) {
+        xAxis = new CategoryAxis();
+        double maxTotalCases = 0.0d;
 
-            String[] continents = {"South America", "Asia", "Europe", "Africa", "North America", "Oceania"};
-            double [] cases = {67274997.000000, 206787307.000000, 245897410.000000, 12480040.000000,120227163.000000, 13795838.000000};
+        //ObservableList<BarChart.Data> barData = FXCollections.observableArrayList();           
+        //ShowVid19Data continentData = data.selectCountryTotals();
+        //for (ShowVid19Record rec : continentData.getData()) {
+        //    barData.add(new BarChart.Data(rec.getLocation(), rec.getTotalCases()));
+        //    if (rec.getTotalCases() > maxTotalCases)
+        //        maxTotalCases = rec.getTotalCases();
+        //}
 
-            xAxis = new CategoryAxis();
-            xAxis.setCategories(FXCollections.<String>observableArrayList(continents));
-            yAxis = new NumberAxis("Total Covid Cases", 0.0d, 300000000.0d, 50000000.0d);
-
-
-            ObservableList<BarChart.Series> barChartData = 
-                FXCollections.observableArrayList(
-                new BarChart.Series("Continents", FXCollections.observableArrayList(
-                    new BarChart.Data(continents[0], cases[0]),
-                    new BarChart.Data(continents[1], cases[1]),
-                    new BarChart.Data(continents[2], cases[2]),
-                    new BarChart.Data(continents[3], cases[3]),
-                    new BarChart.Data(continents[4], cases[4]),
-                    new BarChart.Data(continents[5], cases[5])))
-                );
-            chart = new BarChart(xAxis, yAxis, barChartData, 5.0d);
-            return chart;
-            
+        
+        ObservableList<BarChart.Data> barData = FXCollections.observableArrayList();           
+        //ShowVid19Data continentData = data.selectContinentTotals();
+        for (ShowVid19Record rec : data) {
+            barData.add(new BarChart.Data(rec.getLocation(), rec.getTotalCases()));
+            if (rec.getTotalCases() > maxTotalCases)
+                maxTotalCases = rec.getTotalCases();
         }
+
+        yAxis = new NumberAxis("Total Covid Cases", 0.0d, maxTotalCases, maxTotalCases/10);
+        ObservableList<BarChart.Series> barChartData = 
+            FXCollections.observableArrayList(
+            new BarChart.Series("Continent",  barData));
+        chart = new BarChart(xAxis, yAxis, barChartData, 5.0d);
+        return chart;
+            
+    }
   
         //*************************************************************
         // pie chart method creator
@@ -79,39 +70,19 @@ public class ShowVid19 extends Application{
 
         private PieChart pieChart;
 
-        public Parent createPieContent() {
-          /**
-           *  South America 67274997.000000
-              Asia 206787307.000000
-              Europe 245897410.000000
-              Africa 12480040.000000
-              North America 120227163.000000
-              Oceania 13795838.000000
-           */
-    
-            String[] continents = {"South America", "Asia", "Europe", "Africa", "North America", "Oceania"};
-            double [] cases = {67274997.000000, 206787307.000000, 245897410.000000, 12480040.000000,120227163.000000, 13795838.000000};
+        public Parent createPieContent(ShowVid19Data data) {
             double totalCases = 0;
-            double [] casesPercent = {0, 0, 0, 0, 0, 0};
             
+            ShowVid19Data continentData = data.selectContinentTotals();
+            for (ShowVid19Record rec : continentData.getData()) {
+                totalCases += rec.getTotalCases();
+            }
             
-            for(int i = 0; i < 6; i++){
-                totalCases += cases[i];
+            ObservableList<PieChart.Data> pieData = FXCollections.observableArrayList();           
+            for (ShowVid19Record rec : continentData.getData()) {
+                pieData.add(new PieChart.Data(rec.getContinent(), rec.getTotalCases() / totalCases));
             }
-    
-            for (int j = 0; j < 6; j++){
-                casesPercent[j] = (cases[j] / totalCases) * 100;
-            }
-    
-            ObservableList<PieChart.Data> pieChartData = 
-                FXCollections.observableArrayList(
-                    new PieChart.Data(continents[0], casesPercent[0]),
-                    new PieChart.Data(continents[1], casesPercent[1]),
-                    new PieChart.Data(continents[2], casesPercent[2]),
-                    new PieChart.Data(continents[3], casesPercent[3]),
-                    new PieChart.Data(continents[4], casesPercent[4]),
-                    new PieChart.Data(continents[5], casesPercent[5])
-                  );
+            ObservableList<PieChart.Data> pieChartData = pieData;
             pieChart = new PieChart(pieChartData);
             return pieChart;
             
@@ -120,48 +91,35 @@ public class ShowVid19 extends Application{
         //*************************************************************
         // Table method creator
         //*************************************************************
- 
-        String[] continents = {"South America", "Asia", "Europe", "Africa", "North America", "Oceania"};
-        double [] cases = {67274997.000000, 206787307.000000, 245897410.000000, 12480040.000000,120227163.000000, 13795838.000000};
-      
-              public static class Records {
-                private final SimpleStringProperty cont;
-                private final SimpleDoubleProperty cases;
-               
-                private Records(String contVal, double caseVal) {
-                    this.cont = new SimpleStringProperty(contVal);
-                    this.cases = new SimpleDoubleProperty(caseVal);
-                }
-        
-                public String getContinentName() {
-                    return cont.get();
-                }
-                public void setContinentName(String contVal) {
-                    cont.set(contVal);
-                }
-               
-                public Double getTotalCases() {
-                    return cases.get();
-                }
-                public void setTotalCases(Double contVal) {
-                    cases.set(contVal);
-                }
-               
+        public Parent createTableContent(ShowVid19Data data) {
+            Group tableGroup = new Group();
+            TableView<ShowVid19Record> table = new TableView<ShowVid19Record>();
+
+            table.setEditable(false);
+
+            TableColumn continentCol = new TableColumn("Continents");
+            continentCol.setCellValueFactory(new PropertyValueFactory<ShowVid19Record,String>("continent"));
+
+            TableColumn totalCasesCol = new TableColumn("Total Cases");
+            totalCasesCol.setCellValueFactory(new PropertyValueFactory<ShowVid19Record,Integer>("totalCasesInt"));
+
+            ObservableList<ShowVid19Record> tableData = FXCollections.observableArrayList();           
+            ShowVid19Data continentData = data.selectContinentTotals();
+            for (ShowVid19Record rec : continentData.getData()) {
+                tableData.add(rec);
             }
-      
-            private TableView<Records> table = new TableView<Records>();
-          private final ObservableList<Records> data =
-              FXCollections.observableArrayList(
-                  new Records(continents[0], cases[0]/1000000),
-                  new Records(continents[1], cases[1]/1000000),
-                  new Records(continents[2], cases[2]/1000000),
-                  new Records(continents[3], cases[3]/1000000),
-                  new Records(continents[4], cases[4]/1000000),
-                  new Records(continents[5], cases[5]/1000000)
-              ); 
-              
-      
-          private TableView tableView = new TableView();
+            table.setItems(tableData);
+            table.getColumns().addAll(continentCol, totalCasesCol);
+
+            final VBox vbox = new VBox();
+            vbox.setSpacing(5);
+            vbox.setPadding(new Insets(10, 0, 0, 10));
+            vbox.getChildren().addAll(table);
+
+            tableGroup.getChildren().addAll(vbox);
+            return tableGroup;
+        }
+        
               
 
     public static void main(String[] args) throws IOException{
@@ -170,6 +128,37 @@ public class ShowVid19 extends Application{
     
     @Override
     public void start (Stage primaryStage) throws Exception{
+        ShowVid19DataReader   dataReader = new ShowVid19DataReader();
+        dataReader.readData();
+
+        ShowVid19Data   data = dataReader.getData();
+
+        ShowVid19Data   dataToDisplay = data.selectCountryTotals();
+        Comparator<ShowVid19Record> cmpCountry = new Comparator<ShowVid19Record>() {
+            public int compare(ShowVid19Record left, ShowVid19Record right) {
+                return left.getLocation().compareTo(right.getLocation());
+            }
+        };
+        Comparator<ShowVid19Record> cmpContinent = new Comparator<ShowVid19Record>() {
+            public int compare(ShowVid19Record left, ShowVid19Record right) {
+                return left.getContinent().compareTo(right.getContinent());
+            }
+        };
+        Comparator<ShowVid19Record> cmpTotals = new Comparator<ShowVid19Record>() {
+            public int compare(ShowVid19Record left, ShowVid19Record right) {
+                if (left.getTotalCases() > right.getTotalCases())
+                {
+                    return -1;
+                } else if (left.getTotalCases() < right.getTotalCases()) {
+                    return 1;
+                }
+                // equal
+                return 0;
+            }
+        };
+
+        List<ShowVid19Record> sortedDataToDisplay = MergeSort.mergeSort(dataToDisplay.getData(), cmpTotals);
+
         // Title of display
         primaryStage.setTitle("SHOWVID 19 DATA DISPLAY");
 
@@ -179,13 +168,21 @@ public class ShowVid19 extends Application{
         MenuItem menuTable = new MenuItem("Table Chart");
 
         // title for drop down to guide user
-        MenuButton menuButton = new MenuButton("Select View Option for ShowVid19 Data", null, menuBar, menuPie, menuTable);
+        MenuButton menuButton = new MenuButton("Select Chart Type", null, menuBar, menuPie, menuTable);
+
+        MenuItem menuFilterCountry   = new MenuItem("Country");
+        MenuItem menuFilterContinent = new MenuItem("Continent");
+        MenuButton menuButtonFilter  = new MenuButton("Filter By", null, menuFilterCountry, menuFilterContinent);
+
+        MenuItem menuSortFilter     = new MenuItem("Filter Type"); // Country, Continent
+        MenuItem menuSortTotalCases = new MenuItem("Total Cases");
+        MenuButton menuButtonSort   = new MenuButton("Sort By", null, menuSortFilter, menuSortTotalCases);
 
         // draws box 
-        HBox hbox = new HBox(menuButton);
+        HBox hbox = new HBox(menuButton, menuButtonFilter, menuButtonSort);
 
         // display's dimensions
-        Scene scene = new Scene(hbox, 500, 500);
+        Scene scene = new Scene(hbox, 300, 25);
 
         // shows scene
         primaryStage.setScene(scene);
@@ -195,32 +192,27 @@ public class ShowVid19 extends Application{
         menuBar.setOnAction(event -> {
             StackPane barLayout = new StackPane();
             Stage barStage = new Stage();
-            barStage.setTitle("Covid Cases by Continent for 2023/01/13");
-            barStage.setScene(new Scene(createBarContent()));
+            barStage.setTitle("Covid Cases by Continent");
+            barStage.setScene(new Scene(createBarContent(sortedDataToDisplay)));
             barStage.show();
         });
 
         menuPie.setOnAction(event -> {
             StackPane pieLayout = new StackPane();
             Stage pieStage = new Stage();
-            pieStage.setTitle("Covid Cases by Continent for 2023/01/13");
-            pieStage.setScene(new Scene(createPieContent()));
+            pieStage.setTitle("Covid Cases by Continent");
+            pieStage.setScene(new Scene(createPieContent(data)));
             pieStage.show();
         });
 
         menuTable.setOnAction(event -> {
             StackPane tblLayout = new StackPane();
             Stage tblStage = new Stage();
+            tblStage.setScene(new Scene(createTableContent(data)));
             tblStage.setTitle("Covid Cases");
-            //tblStage.setScene(new Scene(createTableContent()));
             tblStage.show();
         });
-
-
-    
  
     }
-
-    // bar chart scene
     
 }

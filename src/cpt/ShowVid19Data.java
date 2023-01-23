@@ -8,32 +8,62 @@ import java.util.HashMap;
 import java.util.List;
 import java.time.LocalDate;
 
-
+/**
+ * ShowVid19Data class file 
+ * @author: K. Sinclair
+ * 
+ */
 public class ShowVid19Data {
+
+    /**
+     * A method that creates ArrayList of ShowVid19 Records and initializes the data variable
+     * 
+     * @return nothing
+     */ 
     public ShowVid19Data() {
         data = new ArrayList<ShowVid19Record>();
     }
 
-    // add record 
+    /**
+     * A method that adds a record to the data ArrayList
+     * 
+     * @param - rec, the record that is getting added to the data
+     * 
+     * @return nothing
+     */ 
     public void addRecord(ShowVid19Record rec) {
         data.add(rec);
     }
 
-    // dump records for continent and total cases
+    /**
+     * A method that dumps records to just get the continent and their total cases
+     * 
+     * @return nothing
+     */ 
     public void dumpRecords() {
         for(ShowVid19Record rec : data) {
             rec.dump();
         }
     }
 
-    // dump records for all data
+    /**
+     * A method that dumps all the records to get output in terminal
+     * 
+     * @return nothing
+     */ 
     public void dumpAllRecords() {
         for(ShowVid19Record rec : data) {
             rec.dumpAll();
         }
     }
 
-    // produce data based on country chosen
+    /**
+     * A method that output of list of records based on the country selected
+     * 
+     * @param - country, the country of the records to return
+     * 
+     * @return selection of records including the country selected
+     */ 
     public ShowVid19Data selectByCountry(String country) {
         ShowVid19Data   selection = new ShowVid19Data();
         for (ShowVid19Record rec : data)
@@ -45,6 +75,13 @@ public class ShowVid19Data {
         return selection;
     }
 
+    /**
+     * A method that output of list of records based on the continent selected
+     * 
+     * @param - continent, the continent of the records to return
+     * 
+     * @return selection of records including the continent selected
+     */ 
     // produce data based on contient
     public ShowVid19Data selectByContinent(String continent) {
         ShowVid19Data selection = new ShowVid19Data();
@@ -56,17 +93,31 @@ public class ShowVid19Data {
         return selection;
     }
 
+    /**
+     * A method that returns all the records
+     * 
+     * @return data
+     */ 
     public List<ShowVid19Record> getRecords (){
         return data;
     }
 
+    /**
+     * A method that get the continent records as alist using HashMap 
+     * 
+     * @return continent records based param continent
+     */ 
     public List<ShowVid19Record> getContinentRecords(String continent){
         HashMap<String, List<ShowVid19Record>> continentRecords  = new HashMap<>();
         return continentRecords.get(continent);
     }
 
 
-    // find the total cases for each continents 
+    /**
+     * A method that returns each continent and their total cases
+     * 
+     * @return data, a record of each continent and its total cases
+     */ 
     public ShowVid19Data selectContinentTotals() {
         ShowVid19Data     country_data = selectCountryTotals();
         HashMap<String, ShowVid19Record>   continent_records = new HashMap<String, ShowVid19Record>();
@@ -77,30 +128,14 @@ public class ShowVid19Data {
                 continent_rec.setTotalCases(totalCases);
             } else { 
                 ShowVid19Record new_rec = new ShowVid19Record("", rec.getContinent(), "", rec.getDate(), rec.getTotalCases(), 0.0, 0.0, 0.0);
+                
                 continent_records.put(rec.getContinent(), new_rec);
             }     
         }
-
         ShowVid19Data   data = new ShowVid19Data();
         for (ShowVid19Record rec : continent_records.values())
             data.addRecord(rec);
         return data;
-    }
-
-    public String[] findContinents(){
-        ShowVid19Data continent_data = selectContinentTotals();
-        
-    }
-
-    // produce number of new cases 
-    public ShowVid19Data showNewCases (String newCases){
-        ShowVid19Data selection = new ShowVid19Data();
-        for (ShowVid19Record rec : data){
-            if(rec.getContinent().equals(newCases)){
-                selection.addRecord(rec);
-            }
-        }
-        return selection;
     }
 
     // produce number of total cases
@@ -114,6 +149,11 @@ public class ShowVid19Data {
         return selection;
     }
 
+    /**
+     * A method that produces the current total case record for each country
+     * 
+     * @return selection or records
+     */ 
     // just produce the current total case record for each country
     public ShowVid19Data selectCountryTotals() {
         ShowVid19Data     selection = new ShowVid19Data();
@@ -130,15 +170,15 @@ public class ShowVid19Data {
         return selection;
     }
 
+    public ArrayList<ShowVid19Record> getData(){
+        return data;
+    }
+
+
     private ArrayList<ShowVid19Record> data;
 
     // create array list of continents
-    public String[] selectContinents(){
-        ShowVid19Data selection = new ShowVid19Data();
-        
-
-
-    }
+    
     // break down by country
     // go through and sort by date
     // compare which has newer date
