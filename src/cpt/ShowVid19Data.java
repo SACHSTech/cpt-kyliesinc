@@ -82,7 +82,6 @@ public class ShowVid19Data {
      * 
      * @return selection of records including the continent selected
      */ 
-    // produce data based on contient
     public ShowVid19Data selectByContinent(String continent) {
         ShowVid19Data selection = new ShowVid19Data();
         for (ShowVid19Record rec : data ) {
@@ -137,7 +136,11 @@ public class ShowVid19Data {
         return data;
     }
 
-    // produce number of new cases 
+    /**
+     * A method that produces the number of new cases
+     * 
+     * @return selection or records
+     */ 
     public ShowVid19Data showNewCases (String newCases){
         ShowVid19Data selection = new ShowVid19Data();
         for (ShowVid19Record rec : data){
@@ -148,7 +151,13 @@ public class ShowVid19Data {
         return selection;
     }
 
-    // produce number of total cases
+    /**
+     * A method that produces the total cases
+     * 
+     * @param - totalCases, string of total cases
+     * 
+     * @return selection of records
+     */ 
     public ShowVid19Data showTotalCases (String totalCases){
         ShowVid19Data selection = new ShowVid19Data();
         for (ShowVid19Record rec : data){
@@ -164,7 +173,6 @@ public class ShowVid19Data {
      * 
      * @return selection or records
      */ 
-    // just produce the current total case record for each country
     public ShowVid19Data selectCountryTotals() {
         ShowVid19Data     selection = new ShowVid19Data();
         ShowVid19Record   last_rec = null;
@@ -180,17 +188,14 @@ public class ShowVid19Data {
         return selection;
     }
 
+    /**
+     * A method all the data
+     * 
+     * @return data, all records
+     */ 
     public ArrayList<ShowVid19Record> getData(){
         return data;
     }
 
     private ArrayList<ShowVid19Record> data;
-
-    // create array list of continents
-    
-    // break down by country
-    // go through and sort by date
-    // compare which has newer date
-
-    //get select country total  
 }
