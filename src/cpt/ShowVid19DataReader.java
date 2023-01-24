@@ -8,6 +8,12 @@ import java.io.FileReader;
  * @author: K. Sinclair
  */
 public class ShowVid19DataReader {
+    
+    /**
+     * A method that reads the cvs file on covid data
+     * 
+     * @return nothing
+     */ 
     public void readData() throws IOException {
         // defining variables
         ShowVid19Data data = new ShowVid19Data();
@@ -23,24 +29,15 @@ public class ShowVid19DataReader {
             while ((line = br.readLine()) != null) {
                 // separating each line into their assigned columns from the header based off the ","
                 String[] values = line.split(",", -1);
-                // declaring the values
-                // values[0] = isocode
-                // values [1] = continent
-                // values [2] = location
-                // values [3] = date
-                // values [4] = total cases
-                // values [5] = new cases
-                // values [6] = total cases/million
-                // values [7] = new cases/million
                 // inputing these values into the covid record class
-                record = new ShowVid19Record(values[0],
-                                             values[1],
-                                             values[2],
-                                             LocalDate.parse(values[3]),
-                                             values[4].isEmpty() ? 0.0 : Double.parseDouble(values[4]),
-                                             values[5].isEmpty() ? 0.0 : Double.parseDouble(values[5]),
-                                             values[6].isEmpty() ? 0.0 : Double.parseDouble(values[6]),
-                                             values[7].isEmpty() ? 0.0 : Double.parseDouble(values[7]));
+                record = new ShowVid19Record(values[0], // iso code
+                                             values[1], // continent
+                                             values[2], // location or country
+                                             LocalDate.parse(values[3]), // date
+                                             values[4].isEmpty() ? 0.0 : Double.parseDouble(values[4]), // total cases
+                                             values[5].isEmpty() ? 0.0 : Double.parseDouble(values[5]), // new cases
+                                             values[6].isEmpty() ? 0.0 : Double.parseDouble(values[6]), // total cases per million
+                                             values[7].isEmpty() ? 0.0 : Double.parseDouble(values[7])); // new cases per million
                 data.addRecord(record);
             }
             br.close();
@@ -49,16 +46,14 @@ public class ShowVid19DataReader {
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         this.data = data;
-
-        //this.data.dumpAllRecords();
-
-        //ShowVid19Data continentData = data.selectContinentTotals();
-        // printing continent and total cases
-        //continentData.dumpRecords();
     }
 
+    /**
+     * A method that gets the data
+     * 
+     * @return data
+     */ 
     public ShowVid19Data getData() {
         return data;
     }
